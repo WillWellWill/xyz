@@ -1,0 +1,72 @@
+#include "Nspr.h"
+
+#include "BoxCellMeta.h"
+
+namespace nspr
+{
+
+BoxCellMeta::BoxCellMeta()
+{
+}
+
+BoxCellMeta::~BoxCellMeta()
+{
+}
+
+int BoxCellMeta::Divide(u_char *data, size_t len)
+{
+    u_char  *p = data;
+    const u_char v = *p;
+    ++p;
+    NsprDebug("Box meta start divide");
+    if (v == 1) {
+        NsprWarn("not support version 1");
+        return NSPR_OK;
+    }
+    uint32_t flag = 0;
+    memcpy((u_char *)&flag + 1, p, 3);
+    p += 3;
+    NsprDebug("flag: 0x%x", htonl(flag));
+
+    NsprDebug("Box meta end divide");
+    return (p - data);
+}
+
+int BoxCellMeta::Fuse(u_char *data, size_t &len)
+{
+    u_char data0[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x21};
+    u_char data1[] = {0x68, 0x64, 0x6c, 0x72, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x6d, 0x64, 0x69, 0x72};
+    u_char data2[] = {0x61, 0x70, 0x70, 0x6c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    u_char data3[] = {0x2d, 0x69, 0x6c, 0x73, 0x74, 0x00, 0x00, 0x00, 0x25, 0xa9, 0x74, 0x6f, 0x6f, 0x00, 0x00, 0x00};
+    u_char data4[] = {0x1d, 0x64, 0x61, 0x74, 0x61, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x4c, 0x61, 0x76};
+    u_char data5[] = {0x66, 0x35, 0x37, 0x2e, 0x35, 0x36, 0x2e, 0x31, 0x30, 0x30};
+    u_char *p = data;
+    memcpy(p, data0, 8);
+    p += 8;
+
+    memcpy(p, data1, 16);
+    p += 16;
+
+    memcpy(p, data2, 16);
+    p += 16;
+
+    memcpy(p, data3, 16);
+    p += 16;
+
+    memcpy(p, data4, 16);
+    p += 16;
+    
+    memcpy(p, data5, 10);
+    p += 10;
+
+    len = p - data;
+    return NSPR_OK;
+}
+
+bool BoxCellMeta::isComposite()
+{
+	return false;
+}
+
+} // namespace nspr
+

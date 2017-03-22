@@ -1,0 +1,25 @@
+ngx_addon_name="ngx_nspr_module"
+
+CORE_MODULES="$CORE_MODULES
+                ngx_nspr_module                             \
+                ngx_nspr_core_module                             \
+                "
+
+HTTP_MODULES="$HTTP_MODULES                                 \
+                ngx_nspr_api_module \
+                "
+
+NGX_ADDON_DEPS="$NGX_ADDON_DEPS                             \
+                $ngx_addon_dir/ngx_nspr.h               \
+                "
+
+
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS                             \
+                $ngx_addon_dir/ngx_nspr_handler.c                   \
+                $ngx_addon_dir/ngx_nspr_udp_handler.c                   \
+                $ngx_addon_dir/ngx_nspr_api_module.c                   \
+                $ngx_addon_dir/ngx_nspr_core_module.c                   \
+                $ngx_addon_dir/ngx_nspr.c                   \
+                "
+CFLAGS="$CFLAGS -I$ngx_addon_dir"
+

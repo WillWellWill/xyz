@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title> nspr </title>
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/css/utility.css">
+    <link rel="stylesheet" type="text/css" href="/css/mgmt.css">
+  </head>
+  <body onload="initxyz()">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#" id="navStart" onclick="selectContainer(this.id)">PUSH</a>
+	  <a href="#" id="navMgmt" onclick="selectContainer(this.id)">MGMT</a>
+	  <a href="#" id="navVideo" onclick="selectContainer(this.id)">VIDEO</a>
+	  <a href="#" id="navSettings" onclick="selectContainer(this.id)">SETTINS</a>
+	  <a href="#" id="navTool" onclick="selectContainer(this.id)">TOOL</a>
+    </div>
+    <span style="float:left;font-size:26px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    <div class="start-container">
+        <div class="left">
+            <table>
+                <tr class="team">
+                    <th><label class="mytextattr" for="server-ip">Addr:</label></th>
+                    <th><input type="text" id="server-ip" class="mytextinput mytextattr" value="10.1.13.196:1688" /><th>
+                </tr>
+                <tr class="team">
+                    <th><label class="mytextattr" for="app-name">App:</label></th>
+                    <th><input type="text" id="app-name" class="mytextinput mytextattr" value="live" /><br/></th>
+                </tr>
+                <tr class="team">
+                    <th><label class="mytextattr" for="live-id">Id:</label></th>
+                    <th><input type="text" id="live-id" class="mytextinput mytextattr" value="apple" /></th>
+                </tr>
+                <tr class="team">
+                    <th><label class="mytextattr" for="direction">Dir:</label></th>
+                    <th>
+                        <select id="direction" class="myselectattr">
+                            <option value ="publish" selected="selected" >Publish</option>
+                            <option value ="play">Play</option>
+                        </select>
+                    </th>
+                </tr>
+                <tr class="team">
+                    <th><label class="mytextattr" for="decription">Desc:</label></th>
+                    <th><input type="text" id="decription" class="mytextinput mytextattr" value="apple"/></th>
+                    <th><input type="button" class="mytextattr myButton" value="START" onclick="startinteract()"  autofocus /></th>
+                </tr>
+            </table>
+            <div id="edit-conn" class="editConn mytextattr"><span id="edit-conn-span">EDIT</span></div>
+            <div id="conn-id" class="connId mytextattr"></div>
+        </div>
+		
+        <div class="right"> 
+            <article id="logtext" class="mytextattr log-text">
+                <h3 id="log-header">No Log Message</h3>
+                <p id="log-prograph"></p>
+            </article>
+        </div>
+    </div>
+    <div class="mgmt-container">
+		<div class="data-screen-area">
+			<select class="server-addr" id="server-addr-list"></select>
+			<div class="screen">
+				<input type="button" class="mytextattr myButton update-screen" value="update" onclick="PortMgmt.Update(PortMgmt.portDesc)"  autofocus />
+				<canvas width="1600" height="900" id="my-screen" class="data-screen"></canvas>
+			</div>
+			<div class="screen">
+				<input type="button" class="mytextattr myButton update-screen" value="update" onclick="drawSomething()"/>
+				<canvas width="1600" height="900" id="my-screen1" class="data-screen"></canvas>
+			</div>
+			<div class="screen">
+				<input type="button" class="mytextattr myButton update-screen" value="update" onclick="drawSomething()"/>
+				<canvas width="1600" height="900" id="my-screen2" class="data-screen"></canvas>
+			</div>
+		</div>
+    </div>
+    <div class="video-container">
+        <br/>
+		<div class="left">
+			<select id="localplayconn" class="videoplayid">
+				<option value ="camera" selected="selected" >Camera</option>
+			</select>
+			<input type="button" class="myButton mytextattr" value="PLAY" onclick="VideoPlayer.playLocal()" />
+			<br/>
+			<video autoplay width=854 height=480 id="localvideo" class="videoscreen">
+			</video>
+		</div>
+		<div class="right">
+			<select id="remoteplayconn" class="videoplayid"></select>
+			<input type="button" class="myButton mytextattr" value="PLAY" onclick="VideoPlayer.playRemote()" />
+			<video autoplay width=854 height=480 id="remotevideo" class="videoscreen">
+			</video>
+		</div>
+        <br/>
+        <br/>
+    </div>
+    <div class="settings-container">
+		<div class="data-screen-area">
+			<label class="mytextattr" for="manage-ip">IP: </label>
+			<input type="text" id="manage-ip" class="mytextinput mytextattr" value="" autofocus />
+			<input type="button" class="mytextattr myButton" value="Add" onclick="Settings.AddIP()"/>
+			<br/><p id="manage-ip-hint" class="mytextattr"></p>
+		</div>
+    </div>
+    <div class="tool-container">
+    </div>
+	<div class="utility-weather">
+		<span id="utility-stock"></span>
+		<span id="utility-weather"></span>
+	</div>
+	<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="/js/xyz.js"></script>
+	<script type="text/javascript" src="/js/session.js"></script>
+	<script type="text/javascript" src="/js/layout.js"></script>
+	<script type="text/javascript" src="/js/interact.js"></script>
+	<script type="text/javascript" src="/js/logclient.js"></script>
+	<script type="text/javascript" src="/js/video.js"></script>
+	<script type="text/javascript" src="/js/mgmt.js"></script>
+	<script type="text/javascript" src="/js/settings.js"></script>
+	<script type="text/javascript" src="/js/utility.js" charset="gb2312"></script>
+  </body>
+</html>
+
